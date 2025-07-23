@@ -40,6 +40,6 @@ Desarrollado por **Vera Ramiro Mateiño**, con la idea de simplificar tareas rep
 ---
 
 > Si te resulta útil, ¡dejá una estrella ⭐ en el repo o compartilo con otros!  
-> Acepto sugerencias y mejoras 👇
-> QUE DISFRUTEN LA NUEVA HERRAMIENTA AUTOMATIZADORA 🙂‍↕️
+> Acepto sugerencias y mejoras 👇  
+> QUE DISFRUTEN LA NUEVA HERRAMIENTA AUTOMATIZADORA 🙂‍↕️  
 **GUARA GUARA**
