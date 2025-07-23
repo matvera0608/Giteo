@@ -25,9 +25,9 @@ Este archivo por lotes (.bat) fue creado con fines educativos y prácticos. Auto
 ## 🛠 Cómo usarlo
 
 1. Asegurate de tener Git instalado y configurado.
-2. Colocá el archivo `Giteo.bat` dentro de tu repositorio local, por ejemplo si tenes Semana_15 como repositorio local u otro nombre. Coloca ahí
-3. Hacé doble clic sin ejecutar como administrador o en el terminal, porque te va a tirar error debido a que se va a ejecutar en el system32. Podés ABRIR SIN MIEDO.
-4. Elegí un mensaje o escribí uno nuevo. ¡Listo!
+2. Colocá el archivo Giteo.bat dentro de tu carpeta de repositorio local (por ejemplo, Semana_15 o el nombre que estés usando).
+3. Haz doble clic para ejecutarlo SIN MIEDO — no uses “Ejecutar como administrador”, ya que se abriría en System32 y dará error.
+4. Elegí uno de los mensajes predefinidos dentro del archivo .bat o escribí uno personalizado. ¡Listo!
 
 ## 🔐 Seguridad
 
