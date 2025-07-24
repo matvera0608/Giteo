@@ -36,9 +36,6 @@ echo.
 :SELECT_COMMIT_MSG
 SET /P "opcion=Ingresa el número del mensaje o '10' para uno personalizado u otros números deseados: "
 
-:: DEBUG: Muestra la opcion seleccionada
-echo DEBUG: Opcion seleccionada: "%opcion%"
-pause
 
 :: Usamos IF/ELSE IF para manejar las opciones numéricas y el salto a personalizado
 IF "%opcion%"=="1" (
@@ -66,10 +63,6 @@ IF "%opcion%"=="1" (
     GOTO SELECT_COMMIT_MSG
 )
 
-:: DEBUG: Muestra el mensaje de commit antes de continuar
-echo DEBUG: Mensaje de commit antes de GOTO: "%COMMIT_MESSAGE%"
-pause
-
 GOTO CONTINUE_GIT_OPERATIONS
 
 :CUSTOM_MESSAGE
@@ -78,18 +71,12 @@ IF "%COMMIT_MESSAGE%"=="" (
     echo El mensaje personalizado no puede estar vacío. Volviendo al menú...
     GOTO SELECT_COMMIT_MSG
 )
-:: DEBUG: Muestra el mensaje personalizado
-echo DEBUG: Mensaje personalizado ingresado: "%COMMIT_MESSAGE%"
-pause
 
 :CONTINUE_GIT_OPERATIONS
 echo.
 echo Usando el mensaje: "%COMMIT_MESSAGE%"
 echo.
 
-:: DEBUG: Pausa antes de la verificación de internet
-echo DEBUG: Antes de CALL :CHECK_INTERNET
-pause
 
 :: **** VERIFICACIÓN DE INTERNET ****
 CALL :CHECK_INTERNET
@@ -108,18 +95,11 @@ echo Conexión a Internet detectada. Continuado con el "giteo"...
 echo.
 :: **********************************
 
-:: DEBUG: Pausa antes de git init
-echo DEBUG: Antes de git init
-pause
-
 git init
 git add .
 git commit -m "%COMMIT_MESSAGE%"
 git branch -M main
 
-:: DEBUG: Pausa después de git commit/branch
-echo DEBUG: Despues de git commit y git branch
-pause
 
 echo esta sección es para dar control al pull
 git pull origin main
@@ -133,10 +113,6 @@ IF %ERRORLEVEL% NEQ 0 (
     pause
     GOTO END_SCRIPT
 )
-
-:: DEBUG: Pausa despues de git pull
-echo DEBUG: Despues de git pull
-pause
 
 echo Intentando subir cambios a GitHub...
 
@@ -153,6 +129,28 @@ IF %ERRORLEVEL% NEQ 0 (
 
 echo.
 echo ¡Giteo completado exitosamente!
-:END_SCRIPT
 
+:: --- FUNCION DE VERIFICACION DE INTERNET ---
+:: **** AQUI ES DONDE DEBE IR LA FUNCION CHECK_INTERNET ****
+:CHECK_INTERNET
+    echo DEBUG (dentro de CHECK_INTERNET): Ejecutando ping...
+    pause
+    ping -n 1 8.8.8.8 -w 1000 >NUL
+    
+    echo DEBUG (dentro de CHECK_INTERNET): ERRORLEVEL despues de ping: %ERRORLEVEL%
+    pause
+
+    IF %ERRORLEVEL% EQU 0 (
+        SET "INTERNET_STATUS=0"
+        echo DEBUG (dentro de CHECK_INTERNET): INTERNET_STATUS establecido a 0
+    ) ELSE (
+        SET "INTERNET_STATUS=1"
+        echo DEBUG (dentro de CHECK_INTERNET): INTERNET_STATUS establecido a 1
+    )
+    echo DEBUG (dentro de CHECK_INTERNET): Antes de GOTO :EOF
+    pause
+    GOTO :EOF
+:: --- FIN FUNCION DE VERIFICACION DE INTERNET ---
+
+:END_SCRIPT
 pause
