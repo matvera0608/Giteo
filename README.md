@@ -8,6 +8,7 @@ Este archivo por lotes (.bat) fue creado con fines educativos y prácticos. Auto
 2. Solicita un mensaje de commit al usuario
 3. Realiza el commit usando ese mensaje
 4. Hace push al repositorio configurado previamente
+5. **COMPATIBLE CON TODOS LOS SISTEMAS OPERATIVOS Y LENGUAJES DE PROGRAMACIÓN**
 
 ## ¿Es seguro?
 
@@ -41,5 +42,6 @@ Desarrollado por **Vera Ramiro Mateiño**, con la idea de simplificar tareas rep
 
 > Si te resulta útil, ¡dejá una estrella ⭐ en el repo o compartilo con otros!  
 > Acepto sugerencias y mejoras 👇  
-> QUE DISFRUTEN LA NUEVA HERRAMIENTA AUTOMATIZADORA 🙂‍↕️  
+> QUE DISFRUTEN LA NUEVA HERRAMIENTA AUTOMATIZADORA 🙂‍↕️
+
 **GUARA GUARA**
