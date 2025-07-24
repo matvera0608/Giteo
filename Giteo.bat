@@ -1,3 +1,4 @@
+@echo off
 chcp 65001
 
 echo Giteo.bat
@@ -35,6 +36,10 @@ echo.
 :SELECT_COMMIT_MSG
 SET /P "opcion=Ingresa el número del mensaje o '10' para uno personalizado u otros números deseados: "
 
+:: DEBUG: Muestra la opcion seleccionada
+echo DEBUG: Opcion seleccionada: "%opcion%"
+pause
+
 :: Usamos IF/ELSE IF para manejar las opciones numéricas y el salto a personalizado
 IF "%opcion%"=="1" (
     SET "COMMIT_MESSAGE=%msg1%"
@@ -61,6 +66,10 @@ IF "%opcion%"=="1" (
     GOTO SELECT_COMMIT_MSG
 )
 
+:: DEBUG: Muestra el mensaje de commit antes de continuar
+echo DEBUG: Mensaje de commit antes de GOTO: "%COMMIT_MESSAGE%"
+pause
+
 GOTO CONTINUE_GIT_OPERATIONS
 
 :CUSTOM_MESSAGE
@@ -69,11 +78,19 @@ IF "%COMMIT_MESSAGE%"=="" (
     echo El mensaje personalizado no puede estar vacío. Volviendo al menú...
     GOTO SELECT_COMMIT_MSG
 )
+:: DEBUG: Muestra el mensaje personalizado
+echo DEBUG: Mensaje personalizado ingresado: "%COMMIT_MESSAGE%"
+pause
 
 :CONTINUE_GIT_OPERATIONS
 echo.
 echo Usando el mensaje: "%COMMIT_MESSAGE%"
 echo.
+
+:: DEBUG: Pausa antes de la verificación de internet
+echo DEBUG: Antes de CALL :CHECK_INTERNET
+pause
+
 :: **** VERIFICACIÓN DE INTERNET ****
 CALL :CHECK_INTERNET
 IF %INTERNET_STATUS% NEQ 0 (
@@ -87,9 +104,11 @@ IF %INTERNET_STATUS% NEQ 0 (
 echo.
 echo Conexión a Internet detectada. Continuado con el giteo...
 echo.
-
-pause
 :: **********************************
+
+:: DEBUG: Pausa antes de git init
+echo DEBUG: Antes de git init
+pause
 
 git init
 git add .
