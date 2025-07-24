@@ -87,7 +87,7 @@ IF %INTERNET_STATUS% NEQ 0 (
     GOTO END_SCRIPT
 )
 echo.
-echo Conexión a Internet detectada. Continuado con el "giteo"...
+echo Conexión a Internet detectada. Continuado con el giteo...
 echo.
 :: **********************************
 
