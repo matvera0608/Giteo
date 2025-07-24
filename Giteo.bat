@@ -102,7 +102,7 @@ IF %INTERNET_STATUS% NEQ 0 (
     GOTO END_SCRIPT
 )
 echo.
-echo Conexión a Internet detectada. Continuado con el giteo...
+echo Conexión a Internet detectada. Continuado con el "giteo"...
 echo.
 :: **********************************
 
@@ -114,6 +114,10 @@ git init
 git add .
 git commit -m "%COMMIT_MESSAGE%"
 git branch -M main
+
+:: DEBUG: Pausa después de git commit/branch
+echo DEBUG: Despues de git commit y git branch
+pause
 
 echo esta sección es para dar control al pull
 git pull origin main
@@ -127,6 +131,10 @@ IF %ERRORLEVEL% NEQ 0 (
     pause
     GOTO END_SCRIPT
 )
+
+:: DEBUG: Pausa despues de git pull
+echo DEBUG: Despues de git pull
+pause
 
 echo Intentando subir cambios a GitHub...
 
