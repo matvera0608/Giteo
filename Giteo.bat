@@ -93,6 +93,8 @@ pause
 
 :: **** VERIFICACIÓN DE INTERNET ****
 CALL :CHECK_INTERNET
+echo DEBUG: Despues de CALL :CHECK_INTERNET. INTERNET_STATUS es: %INTERNET_STATUS%
+pause
 IF %INTERNET_STATUS% NEQ 0 (
     echo.
     echo ERROR: No se detectó la conexión a Internet.
