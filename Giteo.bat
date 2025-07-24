@@ -74,9 +74,6 @@ IF "%COMMIT_MESSAGE%"=="" (
 echo.
 echo Usando el mensaje: "%COMMIT_MESSAGE%"
 echo.
-
-pause
-
 :: **** VERIFICACIÓN DE INTERNET ****
 CALL :CHECK_INTERNET
 IF %INTERNET_STATUS% NEQ 0 (
@@ -90,6 +87,8 @@ IF %INTERNET_STATUS% NEQ 0 (
 echo.
 echo Conexión a Internet detectada. Continuado con el giteo...
 echo.
+
+pause
 :: **********************************
 
 git init
