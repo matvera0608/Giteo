@@ -126,29 +126,19 @@ IF %ERRORLEVEL% NEQ 0 (
     pause
     GOTO END_SCRIPT
 )
-
 echo.
 echo ¡Giteo completado exitosamente!
 
-:: --- FUNCION DE VERIFICACION DE INTERNET ---
-:: **** AQUI ES DONDE DEBE IR LA FUNCION CHECK_INTERNET ****
+:: --- FUNCION DE VERIFICACIÓN DE INTERNET ---
+:: **** AQUI ES DONDE DEBE IR LA FUNCIÓN CHECK_INTERNET ****
 :CHECK_INTERNET
-    echo DEBUG (dentro de CHECK_INTERNET): Ejecutando ping...
-    pause
     ping -n 1 8.8.8.8 -w 1000 >NUL
-    
-    echo DEBUG (dentro de CHECK_INTERNET): ERRORLEVEL despues de ping: %ERRORLEVEL%
-    pause
-
+    :: El ERRORLEVEL de ping es 0 si fue exitoso, 1 si falló
     IF %ERRORLEVEL% EQU 0 (
-        SET "INTERNET_STATUS=0"
-        echo DEBUG (dentro de CHECK_INTERNET): INTERNET_STATUS establecido a 0
+        SET "INTERNET_STATUS=0" :: 0 significa conectado
     ) ELSE (
-        SET "INTERNET_STATUS=1"
-        echo DEBUG (dentro de CHECK_INTERNET): INTERNET_STATUS establecido a 1
+        SET "INTERNET_STATUS=1" :: 1 significa desconectado
     )
-    echo DEBUG (dentro de CHECK_INTERNET): Antes de GOTO :EOF
-    pause
     GOTO :EOF
 :: --- FIN FUNCION DE VERIFICACION DE INTERNET ---
 
