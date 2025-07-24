@@ -3,6 +3,7 @@ chcp 65001
 
 echo Giteo.bat
 echo Iniciando subida a GitHub...
+echo ESTA HERRAMIENTA ES COMPATIBLE CON TODOS LOS LENGUAJES DE PROGRAMACIÓN: Pyhton, JavaScript, Java, C# Y ENTRE OTROS.
 
 :: --- CONFIGURACION DE MENSAJES DE COMMIT ---
 :: Define tus mensajes de commit predefinidos aquí
@@ -74,6 +75,21 @@ IF "%COMMIT_MESSAGE%"=="" (
 echo.
 echo Usando el mensaje: "%COMMIT_MESSAGE%"
 echo.
+
+:: **** VERIFICACIÓN DE INTERNET ****
+CALL :CHECK_INTERNET
+IF %INTERNET_STATUS% NEQ 0 (
+    echo.
+    echo ERROR: No se detectó la conexión a Internet.
+    echo No se puede gitear sin conexión.
+    echo.
+    pause
+    GOTO END_SCRIPT
+)
+echo.
+echo Conexión a Internet detectada. Continuado con el "giteo"...
+echo.
+:: **********************************
 
 git init
 git add .
