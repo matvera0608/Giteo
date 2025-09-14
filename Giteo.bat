@@ -80,8 +80,6 @@ echo.
 
 :: **** VERIFICACIÓN DE INTERNET ****
 CALL :CHECK_INTERNET
-echo DEBUG: Despues de CALL :CHECK_INTERNET. INTERNET_STATUS es: %INTERNET_STATUS%
-pause
 IF %INTERNET_STATUS% NEQ 0 (
     echo.
     echo ERROR: No se detectó la conexión a Internet.
@@ -91,31 +89,39 @@ IF %INTERNET_STATUS% NEQ 0 (
     GOTO END_SCRIPT
 )
 echo.
-echo Conexión a Internet detectada. Continuado con el "giteo"...
+echo Conexión a Internet detectada. Continuado con el giteo...
 echo.
 :: **********************************
+
+echo esta sección es para agregar en el repositorio correspondiente
 
 git init
 git add .
 git commit -m "%COMMIT_MESSAGE%"
 git branch -M main
 
-
 echo esta sección es para dar control al pull
-git pull origin main
+git pull --rebase
 
 IF %ERRORLEVEL% NEQ 0 (
     echo.
-    echo ERROR: Hubo un problema al pulear cambios con git pull.
-    echo Por favor, revisa manualmente los conflictos si los hay,
-    echo y ejecuta el script de nuevo.
+    echo ERROR: Hubo un CONFLICTO DE FUSION.
+    echo Git ha detenido la operacion.
+    echo.
+    echo Por favor, sigue estos pasos para resolverlo:
+    echo 1. Abre el editor de codigo y resuelve los conflictos.
+    echo 2. Una vez resueltos, usa la terminal para ejecutar:
+    echo    git add .
+    echo    git rebase --continue
+    echo.
+    echo Si quieres cancelar el rebase, usa:
+    echo    git rebase --abort
     echo.
     pause
     GOTO END_SCRIPT
 )
 
 echo Intentando subir cambios a GitHub...
-
 git push -u origin main
 
 IF %ERRORLEVEL% NEQ 0 (
@@ -129,11 +135,12 @@ IF %ERRORLEVEL% NEQ 0 (
 echo.
 echo ¡Giteo completado exitosamente!
 
-:: --- FUNCION DE VERIFICACIÓN DE INTERNET ---
-:: **** AQUI ES DONDE DEBE IR LA FUNCIÓN CHECK_INTERNET ****
+pause
+
 :CHECK_INTERNET
     ping -n 1 8.8.8.8 -w 1000 >NUL
     :: El ERRORLEVEL de ping es 0 si fue exitoso, 1 si falló
+    ::
     IF %ERRORLEVEL% EQU 0 (
         SET "INTERNET_STATUS=0" :: 0 significa conectado
     ) ELSE (
@@ -143,4 +150,3 @@ echo ¡Giteo completado exitosamente!
 :: --- FIN FUNCION DE VERIFICACION DE INTERNET ---
 
 :END_SCRIPT
-pause
