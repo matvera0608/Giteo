@@ -1,6 +1,5 @@
 @echo off
 chcp 65001
-
 echo Giteo.bat
 echo Iniciando subida a GitHub...
 echo ESTA HERRAMIENTA ES COMPATIBLE CON TODOS LOS LENGUAJES DE PROGRAMACIÓN: Pyhton, JavaScript, Java, C# Y ENTRE OTROS.
@@ -125,8 +124,10 @@ GOTO CONTINUE_GIT_OPERATIONS
 
 :CUSTOM_MESSAGE
 SET /P "COMMIT_MESSAGE=Commitea tu mensaje: "
-IF "%COMMIT_MESSAGE%"=="" (
-    echo El mensaje personalizado no puede estar vacío. Volviendo al menú...
+
+IF "!COMMIT_MESSAGE!"=="" ( 
+    echo El mensaje personalizado no puede estar vacío.
+    Volviendo al menú...
     GOTO SELECT_COMMIT_MSG
 )
 
@@ -146,9 +147,8 @@ IF %INTERNET_STATUS% NEQ 0 (
     GOTO END_SCRIPT
 )
 echo.
-echo Conexión a Internet detectada. Continuado con el giteo...
+echo Conexión a Internet detectada. Continuado con el giteo
 echo.
-
 :: --- SECCIÓN PARA INICIAR O ACTUALIZAR REPOSITORIO ---
 IF NOT EXIST ".git" (
     echo Inicializando nuevo repositorio...
@@ -156,51 +156,20 @@ IF NOT EXIST ".git" (
     git add .
     git commit -m "%COMMIT_MESSAGE%"
     git branch -M main
-    IF NOT EXIST repositorio_url.txt (
-        SET /P "URL=Ingresa la URL del repositorio de GitHub: "
-        echo %URL%>repositorio_url.txt
-    ) ELSE (
-        SET /P URL=<repositorio_url.txt 
-        echo Usando la URL del repositorio guardada: %URL%
-    )
-    git remote | findstr /i "origin" >nul
-    IF %ERRORLEVEL% NEQ 0 (
-        git remote add origin %URL%
-    ) ELSE (
-        git remote set-url origin %URL%
-    )
-    git push -u origin main
+    :: AGREGA ESTA LÍNEA SOLO LA PRIMERA VEZ
+    SET /P "URL=Ingresa la URL del repositorio de GitHub: "
+    git remote add origin %URL%
 ) ELSE (
     echo Repositorio ya inicializado.
-    echo Asegurando que el repositorio local este actualizado...
-    SET /P "hacerPull=¿Querés pullear antes de subir (si/no)?: "
-    IF /I "%hacerPull%"=="si" (
-        git pull --rebase
-        IF %ERRORLEVEL% NEQ 0 (
-            echo ERROR: No se pudo hacer el pull/rebase. Revisa los conflictos.
-            pause
-            GOTO END_SCRIPT
-        )
-    )
-    echo Agregando y commiteando los nuevos cambios...
+    echo esta sección es para agregar en el repositorio correspondiente
     git add .
     git commit -m "%COMMIT_MESSAGE%"
-    echo Subiendo los cambios a GitHub...
-    git push -u origin main
-    IF %ERRORLEVEL% NEQ 0 (
-        echo.
-        echo ERROR: Fallo la subida (Rejected). Tu rama no esta actualizada.
-        echo Intentando sincronizar y subir de nuevo...
-        git pull --rebase
-        IF %ERRORLEVEL% EQU 0 (
-            echo Rebase exitoso. Reintentando la subida...
-            git push -u origin main
-        ) ELSE (
-            echo ERROR: No se pudo hacer el pull/rebase. Revisa los conflictos.
-            GOTO END_SCRIPT
-        )
-    )
+	rem esta sección es para dar control al pull
+    git pull --rebase
 )
+
+echo Intentando subir cambios a GitHub...
+git push -u origin main
 
 IF %ERRORLEVEL% NEQ 0 (
     echo.
@@ -214,14 +183,14 @@ IF %ERRORLEVEL% NEQ 0 (
     echo    git rebase --continue
     echo.
     echo Si quieres cancelar el rebase, usa:
-    echo    git rebase --abort
+    echo git rebase --abort
     echo.
     pause
     GOTO END_SCRIPT
 )
-
 echo.
 echo ¡Giteo completado exitosamente!
+pause
 
 :CHECK_INTERNET
     ping -n 1 8.8.8.8 -w 1000 >NUL
@@ -231,5 +200,5 @@ echo ¡Giteo completado exitosamente!
         SET "INTERNET_STATUS=1"
     )
     GOTO :EOF
-	
+
 :END_SCRIPT
