@@ -4,6 +4,8 @@ echo Giteo.bat
 echo Iniciando subida a GitHub...
 echo ESTA HERRAMIENTA ES COMPATIBLE CON TODOS LOS LENGUAJES DE PROGRAMACIÓN: Pyhton, JavaScript, Java, C# Y ENTRE OTROS.
 
+:: while(1) { .\Giteo.bat; Start-Sleep -s 1; Clear-Host }
+
 :: --- VARIABLES DE MENSAJES DE COMMIT ---
 
 SET "msg1=El primer programa hecho por mi."
@@ -149,6 +151,7 @@ IF %INTERNET_STATUS% NEQ 0 (
 echo.
 echo Conexión a Internet detectada. Continuado con el giteo
 echo.
+
 :: --- SECCIÓN PARA INICIAR O ACTUALIZAR REPOSITORIO ---
 IF NOT EXIST ".git" (
     echo Inicializando nuevo repositorio...
@@ -160,34 +163,59 @@ IF NOT EXIST ".git" (
     SET /P "URL=Ingresa la URL del repositorio de GitHub: "
     git remote add origin %URL%
 ) ELSE (
-    echo Repositorio ya inicializado.
+    echo Repositorio ya inicializado
     echo esta sección es para agregar en el repositorio correspondiente
+
     git add .
     git commit -m "%COMMIT_MESSAGE%"
 	rem esta sección es para dar control al pull
     git pull --rebase
 )
-
-echo Intentando subir cambios a GitHub...
+echo Intentando subir cambios a GitHub
 git push -u origin main
+@REM IF %ERRORLEVEL% NEQ 0 (
+@REM     echo ERROR: Falló la subida (Rejected). Tu rama no está actualizada. Intentando sincronizar y subir de nuevo...
+@REM     SET /P "hacerPull=¿Querés pullear antes de subir (si/no)?: "
 
-IF %ERRORLEVEL% NEQ 0 (
-    echo.
-    echo ERROR: Hubo un CONFLICTO DE FUSION.
-    echo Git ha detenido la operacion.
-    echo.
-    echo Por favor, sigue estos pasos para resolverlo:
-    echo 1. Abre el editor de codigo y resuelve los conflictos.
-    echo 2. Una vez resueltos, usa la terminal para ejecutar:
-    echo    git add .
-    echo    git rebase --continue
-    echo.
-    echo Si quieres cancelar el rebase, usa:
-    echo git rebase --abort
-    echo.
-    pause
-    GOTO END_SCRIPT
-)
+@REM     IF /I "%hacerPull%"=="si" (
+@REM         git pull --rebase
+        
+@REM         IF %ERRORLEVEL% NEQ 0 (
+@REM             echo ERROR: No se pudo hacer el pull/rebase, es necesario revisar los conflictos.
+@REM             pause
+@REM             GOTO END_SCRIPT
+@REM         )
+        
+@REM         IF %ERRORLEVEL% EQU 0 (
+@REM             echo Rebase exitoso. Reintentando la subida...
+@REM             git push -u origin main
+@REM         )
+@REM     ) ELSE (
+@REM         echo Operación de sincronización cancelada.
+@REM         pause
+@REM         GOTO END_SCRIPT
+@REM     )
+@REM )
+
+
+@REM IF %ERRORLEVEL% NEQ 0 (
+@REM     echo.
+@REM     echo ERROR: Hubo un CONFLICTO DE FUSION.
+@REM     echo Git ha detenido la operacion.
+@REM     echo.
+@REM     echo Por favor, sigue estos pasos para resolverlo:
+@REM     echo 1. Abre el editor de codigo y resuelve los conflictos.
+@REM     echo 2. Una vez resueltos, usa la terminal para ejecutar:
+@REM     echo    git add .
+@REM     echo    git rebase --continue
+@REM     echo.
+@REM     echo Si quieres cancelar el rebase, usa:
+@REM     echo git rebase --abort
+@REM     echo.
+@REM     pause
+@REM     GOTO END_SCRIPT
+@REM )
+
 echo.
 echo ¡Giteo completado exitosamente!
 pause
