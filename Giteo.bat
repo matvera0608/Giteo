@@ -14,11 +14,12 @@ REM color 0B es para texto azul claro
 REM color 0C es para texto rojo
 REM color 0E es para texto amarillo
 
-REM 🚀 --- FLUJO PRINCIPAL ---
+REM 🚀 --- FLUJO PRINCIPAL --- BORRÉ PORQUE HABIA CIERTAS DUPLICACIONE
 CALL :SELECT_LANGUAGE
+CALL :CREATE_GITIGNORE
 CALL :CHECK_INTERNET
 CALL :INICIAR_O_ACTUALIZAR
-
+EXIT /B
 :: ................................
 :: FUNCIONES PRINCIPALES
 :: ................................
@@ -57,7 +58,6 @@ echo .........................................................................
 :CREATE_GITIGNORE
     IF EXIST .gitignore (
         echo El archivo .gitignore ya existe. No se sobrescribira.
-        GOTO :EOF
     )
     SET "LANG_TYPE=%~1"
     IF "%LANG_TYPE%"=="python" (
@@ -83,8 +83,7 @@ echo .........................................................................
         echo .classpath >> .gitignore
     )
     echo Archivo .gitignore creado exitosamente para el lenguaje %LANG_TYPE%.
-
-GOTO :EOF
+    GOTO :EOF
 
 
 :CHECK_INTERNET
@@ -115,9 +114,10 @@ GOTO :EOF
             echo No se puede gitear sin conexión. El proceso está abortado
             echo.
             GOTO END_SCRIPT
-        )   
+        ) 
     )
-GOTO :EOF
+    GOTO :EOF
+
 
 echo .........................................................................
 
@@ -137,9 +137,10 @@ echo .........................................................................
         git add .
         git commit -m "%COMMIT_MESSAGE%"
         git branch -M main
-        GOTO :PUSHEO_INICIAL
+        GOTO PUSHEO_INICIAL
     )
-GOTO :EOF
+    GOTO :EOF
+
 
 :PUSHEO_INICIAL
     echo.
@@ -164,10 +165,10 @@ GOTO :EOF
         timeout /t 2 /nobreak >NUL
         GOTO PUSHEO_INICIAL
     ) ELSE (
-        echo 🚫 Fallo tras 5 intentos de sincronización.
+        echo 🚫 Falló tras 5 intentos de sincronización.
         GOTO CONFLICTO
     )
-GOTO :EOF
+
 
 :CONFLICTO
     color 0C
@@ -179,18 +180,17 @@ GOTO :EOF
     echo 3️⃣ Luego git rebase --continue
     echo Si deseas abortar ejecuta git rebase --abort
     pause
-GOTO END_SCRIPT
+    GOTO END_SCRIPT
 
 :PUSHEO_EXITOSO
     color 0A
-    echo.
-    echo ✅ ¡Giteo completado exitosamente!
-    echo Cambios subidos a GitHub correctamente.
-
+    echo .........................................................................
+    echo ¡Giteo completado exitosamente!  Cambios subidos a GitHub correctamente.
+    GOTO END_SCRIPT
 
 :END_SCRIPT
     echo .........................................................................
-    echo ¡Giteo completado exitosamente!
+    echo Proceso Giteo finalizado.
     echo .........................................................................
     timeout /t 2 >NUL
-    exit /b
+    EXIT /B
