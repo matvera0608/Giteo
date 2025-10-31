@@ -4,11 +4,12 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 SET MAX_INTENTOS=5
 SET INTENTO=0
 SET INTENTO_DE_PUSHEO=1
-SET COMMIT_MESSAGE=Subida desde Giteo.bat
+SET COMMIT_MESSAGE=Cambios realizados
 echo .........................................................................
 echo Giteo v2.3 pro
 echo Iniciando subida a GitHub...
-echo ESTA HERRAMIENTA ES COMPATIBLE CON TODOS LOS LENGUAJES DE PROGRAMACIÓN: Python, JavaScript, Java, C# Y ENTRE OTROS.
+echo ESTA HERRAMIENTA ES COMPATIBLE CON TODOS LOS LENGUAJES DE PROGRAMACIÓN:
+echo Python, JavaScript, Java, C# Y ENTRE OTROS.
 REM color 0A es para texto verde
 REM color 0B es para texto azul claro
 REM color 0C es para texto rojo
@@ -16,7 +17,7 @@ REM color 0E es para texto amarillo
 
 REM 🚀 --- FLUJO PRINCIPAL --- BORRÉ PORQUE HABIA CIERTAS DUPLICACIONE
 CALL :SELECT_LANGUAGE
-CALL :CREATE_GITIGNORE
+IF NOT EXIST .gitignore CALL :CREATE_GITIGNORE
 CALL :CHECK_INTERNET
 CALL :INICIAR_O_ACTUALIZAR
 EXIT /B
@@ -56,10 +57,11 @@ EXIT /B
 echo .........................................................................
 
 :CREATE_GITIGNORE
+    SET "LANG_TYPE=%~1"
     IF EXIST .gitignore (
         echo El archivo .gitignore ya existe. No se sobrescribira.
     )
-    SET "LANG_TYPE=%~1"
+    
     IF "%LANG_TYPE%"=="python" (
         echo # Python >> .gitignore
         echo __pycache__/ >> .gitignore
@@ -185,12 +187,11 @@ echo .........................................................................
 :PUSHEO_EXITOSO
     color 0A
     echo .........................................................................
-    echo ¡Giteo completado exitosamente!  Cambios subidos a GitHub correctamente.
+    echo ¡Giteo completado exitosamente, cambios subidos a GitHub correctamente!
     GOTO END_SCRIPT
 
 :END_SCRIPT
     echo .........................................................................
     echo Proceso Giteo finalizado.
-    echo .........................................................................
-    timeout /t 2 >NUL
+    timeout /t 1 >NUL
     EXIT /B
