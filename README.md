@@ -1,47 +1,67 @@
-# Automatizador de Subidas a Git – Giteo.bat
+# 🧠 Giteo.bat — Automatizador de Git fácil y rápido
 
-Este archivo por lotes (.bat) fue creado con fines educativos y prácticos. Automatiza tareas básicas de Git (add, commit, push) para facilitar la subida de archivos a cualquier repositorio remoto.
-
-## ¿Qué hace exactamente?
-
-1. Añade todos los archivos modificados con `git add .`
-2. Solicita un mensaje de commit al usuario
-3. Realiza el commit usando ese mensaje
-4. Hace push al repositorio configurado previamente
-5. **COMPATIBLE CON TODOS LOS SISTEMAS OPERATIVOS Y LENGUAJES DE PROGRAMACIÓN**
-
-## ¿Es seguro?
-
-✅ Sí. Este script solo ejecuta comandos de Git.  
-🚫 No modifica nada fuera del contexto del repositorio local.  
-🛡️ Lo podés abrir con Bloc de notas o cualquier editor de texto y ver exactamente lo que hace.
-
-## ¿Para qué sirve?
-
-- Para estudiantes de programación, cursos o prácticas.
-- Para desarrolladores que quieran automatizar su flujo.
-- Para quienes aún no están cómodos con Git y quieren un archivo que les facilite el trabajo.
+**Giteo.bat** es un script que simplifica el flujo de trabajo con Git.  
+Permite subir tus cambios a GitHub con un solo clic, sin depender de GitHub Desktop ni escribir comandos manualmente.
 
 ---
-## 🛠 Cómo usarlo
 
-1. Asegurate de tener Git instalado y configurado.
-2. Colocá el archivo Giteo.bat dentro de tu carpeta de repositorio local (por ejemplo, Semana_15 o el nombre que estés usando).
-3. Haz doble clic para ejecutarlo SIN MIEDO — no uses “Ejecutar como administrador”, ya que se abriría en System32 y dará error.
-4. Elegí uno de los mensajes predefinidos dentro del archivo .bat o escribí uno personalizado. ¡Listo!
+## ⚙️ ¿Qué hace exactamente?
 
-## 🔐 Seguridad
+✅ Añade todos los archivos modificados (`git add .`)  
+📝 Solicita un mensaje de *commit* al usuario
+📦 Realiza el *commit* con ese mensaje o commitea el mensaje.
+☁️ Hace *push* al repositorio configurado previamente  
 
-Este archivo es totalmente transparente: podés leer todo el contenido y ver que **no realiza operaciones peligrosas** ni maliciosas.
+💻 **Este es 100% compatible con cualquier sistema operativo y lenguaje de programación.**
+
+---
+
+## 🔒 ¿Es seguro?
+
+Sí, segurísimo.
+🛡️ Este script **solo ejecuta comandos de Git**, nada más.  
+🚫 No modifica ni elimina archivos fuera del repositorio local como carpetas del sistema u otros archivos.
+📂 Podés abrirlo con cualquier editor de texto (como el Bloc de notas, Notepad++ o VSCODE) y ver exactamente qué hace.
+
+---
+
+## 🎯 ¿Para qué sirve?
+
+- Para **estudiantes** o quienes estén aprendiendo Git y GitHub.  
+- Para **desarrolladores** que quieran automatizar tareas repetitivas.  
+- Para **cursos o prácticas** donde se entregan proyectos constantemente.  
+- Para quienes prefieren **una interfaz simple** en lugar de usar GitHub Desktop o la terminal.
+
+---
+
+## 🧰 Cómo usarlo
+
+1. Asegurate de tener **Git** instalado y configurado.  
+2. Colocá el archivo **`Giteo.bat`** dentro de tu carpeta de repositorio local (por ejemplo: `Semana_15`, `ProyectoFinal` o `Trabajo_Final` etc.).  
+3. Hacé **doble clic** para ejecutarlo *(no uses “Ejecutar como administrador”)*, porque puede hacer que no .  
+4. Escribí un mensaje de commit o elegí uno predefinido dentro del script.  
+5. ¡Listo! Tus cambios se subirán automáticamente a GitHub 🚀
+
+---
+
+## 🔐 Seguridad y transparencia
+
+- 100% legible: podés ver su contenido completo.  
+- No requiere privilegios de administrador.  
+- No accede a internet más allá de las operaciones de Git.  
+
+---
 
 ## ✍️ Autor
 
-Desarrollado por **Vera Ramiro Mateiño**, con la idea de simplificar tareas repetitivas y ahorrar tiempo.
+Desarrollado por **Vera Ramiro Mateiño**  
+💡 Con la idea de simplificar tareas repetitivas y ahorrar tiempo en proyectos personales y educativos.
+
+Si te resulta útil:  
+⭐ ¡Dejá una estrella en el repositorio o compartilo con otros!  
+📬 Acepto sugerencias y mejoras — TODA IDEA ES BIENVENIDA.
 
 ---
 
-> Si te resulta útil, ¡dejá una estrella ⭐ en el repo o compartilo con otros!  
-> Acepto sugerencias y mejoras 👇  
-> QUE DISFRUTEN LA NUEVA HERRAMIENTA AUTOMATIZADORA 🙂‍↕️
-
-**GUARA GUARA**
+**🧩 Que disfruten esta herramienta automatizadora llamada Giteo.bat.**  
+Porque la simpleza también es una forma de inteligencia. 🙂
