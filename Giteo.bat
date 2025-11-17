@@ -60,6 +60,7 @@ echo .........................................................................
     SET "LANG_TYPE=%~1"
     IF EXIST .gitignore (
         echo El archivo .gitignore ya existe. No se sobrescribira.
+        GOTO :EOF
     )
     
     IF "%LANG_TYPE%"=="python" (
@@ -194,4 +195,5 @@ echo .........................................................................
     echo .........................................................................
     echo Proceso Giteo finalizado.
     timeout /t 1 >NUL
+
     EXIT /B
