@@ -4,7 +4,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 SET MAX_INTENTOS=5
 SET INTENTO=0
 SET INTENTO_DE_PUSHEO=1
-SET COMMIT_MESSAGE=Cambios realizados
+SET COMMIT_MESSAGE=Mi primer proyecto de edición
 echo .........................................................................
 echo Giteo v2.3 pro
 echo Iniciando subida a GitHub...
@@ -102,16 +102,14 @@ echo .........................................................................
 
     IF %INTERNET_STATUS% EQU 0 (
     GOTO :EOF
-    )
-    ELSE (
+    ) ELSE (
         IF !INTENTO! LSS !MAX_INTENTOS! (
             color 0E
             SET /A INTENTO+=1
             echo ERROR: No se detectó la conexión a Internet. Reintentando en 5 segundos... (Intento !INTENTO! de !MAX_INTENTOS!)
             timeout /t 5 /nobreak > NUL
             GOTO CHECK_INTERNET
-        ) 
-        ELSE (
+        ) ELSE (
             color 0C
             echo.
             echo No se puede gitear sin conexión. El proceso está abortado
@@ -127,12 +125,12 @@ echo .........................................................................
 :INICIAR_O_ACTUALIZAR
     echo.
     IF NOT EXIST ".git" (
-        color 0E
+        color 0B
         echo Inicializando nuevo repositorio...
         git init
         git add .
         git commit -m "%COMMIT_MESSAGE%"
-        git branch -M main
+        git branch -M 
         SET /P "URL=Ingresa la URL del repositorio de GitHub: "
         git remote add origin %URL%
     ) ELSE (
@@ -159,7 +157,14 @@ echo .........................................................................
     echo ⚠️  Error en la subida (Rejected o temporal).
     IF !INTENTO_DE_PUSHEO! LEQ 5 (
         echo Intentando sincronizar y reintentar... (Intento !INTENTO_DE_PUSHEO! de 5)
+        REM ----------------------------------------------------
+        REM PASO 1: INTENTAR CONFIGURAR TRACKING SI ES NECESARIO
+        REM Solo intentamos esto en el primer fallo (Intento 1)
+        IF !INTENTO_DE_PUSHEO! EQU 1 (
+            git branch --set-upstream-to=origin/main main
+        )
         git pull --rebase
+        REM ----------------------------------------------------
         IF %ERRORLEVEL% NEQ 0 GOTO CONFLICTO
         echo Rebase exitoso. Reintentando subida...
         git push -u origin main
@@ -171,7 +176,6 @@ echo .........................................................................
         echo 🚫 Falló tras 5 intentos de sincronización.
         GOTO CONFLICTO
     )
-
 
 :CONFLICTO
     color 0C
@@ -195,5 +199,4 @@ echo .........................................................................
     echo .........................................................................
     echo Proceso Giteo finalizado.
     timeout /t 1 >NUL
-
     EXIT /B
